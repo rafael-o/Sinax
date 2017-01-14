@@ -15,6 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 
 /**
  * @author rafael
@@ -109,5 +114,23 @@ public class Musica implements Serializable {
      */
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+    
+    public static boolean saveMusica(Musica musica) {
+        Configuration conf = new AnnotationConfiguration();
+        conf.configure();
+
+        SessionFactory factory = conf.buildSessionFactory();
+        Session session = factory.openSession();
+
+        Transaction trans = session.beginTransaction();
+        
+        Musica nMusica = (Musica)session.merge(musica);
+        
+        trans.commit();
+        
+        session.close();
+        
+        return nMusica.getId() != 0;
     }
 }
