@@ -14,13 +14,15 @@ import org.mypackage.objects.model.Musica;
 
 /**
  *
- * @author Zeller
+ * @author Rafael
  */
 @WebService(serviceName = "WebServices")
 public class WebServices {
 
     /**
      * This is a sample web service operation
+     * @param txt
+     * @return 
      */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -55,6 +57,7 @@ public class WebServices {
 
     /**
      * Operação de Web service
+     * @return 
      */
     @WebMethod(operationName = "BuscarMusicas")
     public List BuscarMusicas() {
