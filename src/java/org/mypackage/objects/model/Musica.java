@@ -6,6 +6,7 @@
 package org.mypackage.objects.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -132,5 +133,19 @@ public class Musica implements Serializable {
         session.close();
         
         return nMusica.getId() != 0;
+    }
+    
+    public static List listarMusicas() {
+        Configuration conf = new AnnotationConfiguration();
+        conf.configure();
+ 
+        SessionFactory factory = conf.buildSessionFactory();
+        Session session = factory.openSession();
+ 
+        Transaction trans = session.beginTransaction();
+        
+        List<Musica> musicas = session.createCriteria(Musica.class).list();
+        
+        return musicas;
     }
 }
